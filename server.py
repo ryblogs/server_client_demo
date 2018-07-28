@@ -15,12 +15,12 @@ serversocket.listen(5) # become a server socket, maximum 5 connections
 
 while True:
     connection, address = serversocket.accept()
-    buf = connection.recv(64)
-    if len(buf) > 0:
-        buf = pickle.loads(buf)
-        print(buf)
-        print(buf[0])
-        if buf == 'close':
+    buffer = connection.recv(4096)#64)
+    if len(buffer) > 0:
+        buffer = pickle.loads(buffer)
+        if buffer == 'close':
             break
-
+        print(buffer)
+        print(buffer[0])
+        
 serversocket.close()
